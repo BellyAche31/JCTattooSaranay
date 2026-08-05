@@ -41,6 +41,21 @@
     servicesGrid.appendChild(card);
   });
 
+  // Piercing pricing
+  const pricingGrid = document.getElementById("pricingGrid");
+  SITE.piercingPricing.forEach((group) => {
+    const card = document.createElement("div");
+    card.className = "pricing-card reveal";
+    const rows = group.items
+      .map(
+        (item) =>
+          `<li><span class="pricing-item-name">${item.name}</span><span class="pricing-item-price">${SITE.currency}${item.price}</span></li>`
+      )
+      .join("");
+    card.innerHTML = `<h3>${group.category}</h3><ul class="pricing-list">${rows}</ul>`;
+    pricingGrid.appendChild(card);
+  });
+
   // Hours
   const hoursTable = document.getElementById("hoursTable");
   SITE.hours.forEach(({ day, time }) => {

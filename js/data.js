@@ -50,12 +50,74 @@ const SITE = {
     {
       title: "Body Piercing",
       description:
-        "Professional, hygienic piercing services using sterile equipment and quality jewelry.",
+        "Professional, hygienic piercing services using sterile equipment and quality jewelry. See the full piercing price list below.",
     },
     {
       title: "Consultations",
       description:
         "Not sure what you want yet? Send a message with your idea, size, and placement for a free consultation.",
+    },
+  ],
+
+  // Piercing price list — default jewelry only, per the shop's posted rate card.
+  currency: "₱",
+  piercingPricing: [
+    {
+      category: "Ear Piercings",
+      items: [
+        { name: "Standard Lobe", price: 200 },
+        { name: "Upper Lobe", price: 200 },
+        { name: "Triple Lobe", price: 200 },
+        { name: "Helix / Mid Helix", price: 250 },
+        { name: "Forward Helix", price: 250 },
+        { name: "Tragus", price: 280 },
+        { name: "Anti-Tragus", price: 280 },
+        { name: "Conch", price: 280 },
+        { name: "Flat", price: 280 },
+        { name: "Rook", price: 300 },
+        { name: "Faux Rook", price: 300 },
+        { name: "Daith", price: 300 },
+      ],
+    },
+    {
+      category: "Lip Piercings",
+      items: [
+        { name: "Medusa", price: 290 },
+        { name: "Monroe", price: 290 },
+        { name: "Ashley", price: 290 },
+        { name: "Labret", price: 290 },
+        { name: "Vertical Labret", price: 290 },
+        { name: "Spider Bites", price: 450 },
+        { name: "Snake Bites", price: 450 },
+        { name: "Shark Bites", price: 450 },
+        { name: "Dahlia", price: 450 },
+      ],
+    },
+    {
+      category: "Facial Piercings",
+      items: [
+        { name: "Nostril", price: 280 },
+        { name: "Double Nostril", price: 350 },
+        { name: "Septum", price: 300 },
+        { name: "Bridge", price: 400 },
+        { name: "Eyebrow", price: 380 },
+        { name: "Both Eyebrow", price: 600 },
+      ],
+    },
+    {
+      category: "Body Piercings",
+      items: [
+        { name: "Nipple", price: 300 },
+        { name: "Both Nipple", price: 600 },
+        { name: "Navel / Belly", price: 300 },
+      ],
+    },
+    {
+      category: "Oral Piercings",
+      items: [
+        { name: "Tongue", price: 300 },
+        { name: "Smiley", price: 300 },
+      ],
     },
   ],
 

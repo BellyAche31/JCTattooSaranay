@@ -471,6 +471,55 @@ h2 { font-size: clamp(2.2rem, 6vw, 3.4rem); }
   margin: 0;
 }
 
+/* ---------- Pricing ---------- */
+.pricing { padding: 120px 0; background: var(--paper-dim); }
+.pricing-note {
+  color: rgba(23, 20, 15, 0.6);
+  margin: -12px 0 44px;
+  font-size: 0.95rem;
+}
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.pricing-card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 30px 28px;
+}
+.pricing-card h3 {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  letter-spacing: 0.02em;
+  color: var(--accent);
+  margin-bottom: 16px;
+}
+.pricing-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.pricing-list li {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 0.95rem;
+}
+.pricing-list li:last-child { border-bottom: none; }
+.pricing-item-name { color: rgba(23, 20, 15, 0.8); }
+.pricing-item-price { font-weight: 700; white-space: nowrap; }
+
+@media (max-width: 900px) {
+  .pricing-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 720px) {
+  .pricing-grid { grid-template-columns: 1fr; }
+}
+
 /* ---------- Hours ---------- */
 .hours { padding: 120px 0; background: var(--ink); color: var(--paper); }
 .hours-inner {
