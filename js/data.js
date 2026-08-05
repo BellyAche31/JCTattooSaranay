@@ -7,22 +7,20 @@ const SITE = {
   businessName: "JCTATTOO Saranay",
   shortName: "JCTATTOO",
   tagline: "Tattoo & Body Piercing",
+  motto: "You Think It, We Ink It",
 
-  // TODO: confirm real location / neighborhood
-  location: "Saranay",
+  location: "Saranay Road, North Caloocan, Caloocan City, Philippines 1421",
+  mapsUrl: "https://share.google/DCXSFshg1ObL0ouDX",
 
-  // TODO: replace with real phone number
-  phone: "",
-  phoneDisplay: "Phone coming soon",
+  phone: "0991 240 1492",
 
   // TODO: replace with real email if the shop uses one
   email: "",
 
-  // TODO: confirm the real Instagram handle (guessed from the logo text)
-  instagramHandle: "@jctattoosaranay",
-  instagramUrl: "https://instagram.com/jctattoosaranay",
+  instagramHandle: "@jcstattoo0503",
+  instagramUrl: "https://instagram.com/jcstattoo0503",
 
-  // TODO: add Facebook/TikTok/etc if the shop uses them
+  // TODO: add the shop's Facebook page URL (page name is "JCTattoo Saranay")
   facebookUrl: "",
   tiktokUrl: "",
 

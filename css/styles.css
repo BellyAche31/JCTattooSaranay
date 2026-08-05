@@ -259,6 +259,13 @@ h2 { font-size: clamp(2.2rem, 6vw, 3.4rem); }
   color: rgba(23, 20, 15, 0.8);
   font-weight: 500;
 }
+.hero-motto {
+  font-family: Georgia, "Times New Roman", serif;
+  font-style: italic;
+  font-size: 0.95rem;
+  color: rgba(23, 20, 15, 0.65);
+  margin: -22px 0 30px;
+}
 .hero-actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
 .hero .btn-primary { background: var(--ink); box-shadow: 0 10px 24px -8px rgba(23, 20, 15, 0.5); }
 .hero .btn-primary:hover { box-shadow: 0 14px 28px -8px rgba(23, 20, 15, 0.6); }

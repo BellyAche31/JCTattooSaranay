@@ -21,11 +21,10 @@ images, contact info) is driven by `js/data.js`. Edit the `SITE` object there
 — no HTML/CSS knowledge needed for text changes.
 
 **Placeholders still needed** (see `TODO` comments in `js/data.js`):
-- Real phone number
-- Confirmed Instagram handle (currently guessed as `@jctattoosaranay` from the logo)
-- Facebook/TikTok links, if used
+- The shop's Facebook page URL, if you want it linked in the footer (page name is "JCTattoo Saranay")
+- TikTok link, if used
 - Confirmation that the poster hours are current and are opening (not closing) times
-- A real address/neighborhood if you want more than "Saranay" shown
+- An email address, if the shop uses one for bookings
 
 To add a new portfolio photo: drop the image in `assets/portfolio/` and add
 an entry to the `portfolio` array in `js/data.js` (with a `tag` matching one

@@ -30,6 +30,7 @@
 
   document.getElementById("artistName").textContent = SITE.artist.name;
   document.getElementById("artistBio").textContent = SITE.artist.bio;
+  if (SITE.motto) document.getElementById("heroMotto").textContent = SITE.motto;
 
   // Services
   const servicesGrid = document.getElementById("servicesGrid");
@@ -56,7 +57,11 @@
   const phoneCard = document.getElementById("phoneCard");
   const phoneValue = document.getElementById("phoneValue");
   if (SITE.phone) {
-    phoneCard.href = `tel:${SITE.phone.replace(/[^\d+]/g, "")}`;
+    // Philippine local mobile numbers start with 0 (e.g. 0991 240 1492) —
+    // swap that leading 0 for the +63 country code for the tel: link.
+    const digits = SITE.phone.replace(/\D/g, "");
+    const intlDigits = digits.startsWith("0") ? "63" + digits.slice(1) : digits;
+    phoneCard.href = `tel:+${intlDigits}`;
     phoneValue.textContent = SITE.phone;
   } else {
     phoneCard.removeAttribute("href");
@@ -64,6 +69,8 @@
     phoneValue.textContent = SITE.phoneDisplay;
   }
 
+  const locationCard = document.getElementById("locationCard");
+  locationCard.href = SITE.mapsUrl;
   document.getElementById("locationValue").textContent = SITE.location;
 
   // Footer socials
