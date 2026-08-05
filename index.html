@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JCTATTOO Saranay — Tattoo &amp; Body Piercing</title>
+  <meta name="description" content="JCTATTOO Saranay: custom tattoos and professional body piercing. Fine line, illustrative, and lettering work." />
+  <link rel="icon" type="image/jpeg" href="assets/brand/logo.jpeg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header" id="siteHeader">
+    <div class="header-inner container">
+      <a href="#home" class="brand">
+        <img src="assets/brand/logo.jpeg" alt="JCTATTOO Saranay logo" class="brand-logo" />
+        <span class="brand-name">JCTATTOO <em>saranay</em></span>
+      </a>
+
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="primaryNav">
+        <span></span><span></span><span></span>
+      </button>
+
+      <nav class="primary-nav" id="primaryNav">
+        <a href="#about">About</a>
+        <a href="#portfolio">Portfolio</a>
+        <a href="#services">Services</a>
+        <a href="#hours">Hours</a>
+        <a href="#contact" class="nav-cta">Book Now</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="home">
+      <div class="hero-inner container">
+        <p class="eyebrow reveal">Tattoo &amp; Body Piercing</p>
+        <h1 class="reveal">JCTATTOO<br /><span class="script">saranay</span></h1>
+        <p class="hero-sub reveal">Custom fine line, illustrative &amp; lettering tattoos — plus professional body piercing.</p>
+        <div class="hero-actions reveal">
+          <a href="#portfolio" class="btn btn-primary">View Portfolio</a>
+          <a href="#contact" class="btn btn-ghost">Book an Appointment</a>
+        </div>
+      </div>
+      <a href="#about" class="scroll-cue" aria-label="Scroll down">
+        <span></span>
+      </a>
+    </section>
+
+    <section class="about" id="about">
+      <div class="container about-inner">
+        <div class="about-text reveal">
+          <p class="eyebrow">About the Artist</p>
+          <h2 id="artistName">JC</h2>
+          <p class="about-bio" id="artistBio">
+            Tattoo artist and piercer at JCTATTOO Saranay, specializing in fine line, illustrative, and
+            lettering work — plus safe, professional body piercing.
+          </p>
+        </div>
+        <div class="about-media reveal">
+          <img src="assets/portfolio/script-shoulder.jpeg" alt="Fine line script tattoo, an example of the artist's lettering work" />
+        </div>
+      </div>
+    </section>
+
+    <section class="portfolio" id="portfolio">
+      <div class="container">
+        <p class="eyebrow reveal center">Selected Work</p>
+        <h2 class="reveal center">Portfolio</h2>
+
+        <div class="gallery-filters reveal center" id="galleryFilters">
+          <button class="filter-btn active" data-filter="all">All</button>
+        </div>
+
+        <div class="gallery" id="gallery"></div>
+      </div>
+    </section>
+
+    <section class="services" id="services">
+      <div class="container">
+        <p class="eyebrow reveal center">What We Offer</p>
+        <h2 class="reveal center">Services</h2>
+        <div class="services-grid" id="servicesGrid"></div>
+      </div>
+    </section>
+
+    <section class="hours" id="hours">
+      <div class="container hours-inner">
+        <div class="hours-text reveal">
+          <p class="eyebrow">When to Find Us</p>
+          <h2>Hours</h2>
+          <p class="hours-note">Hours can shift around holidays — message us on Instagram or call ahead to confirm before you come by.</p>
+          <div class="hours-actions">
+            <a href="#contact" class="btn btn-primary">Get in Touch</a>
+          </div>
+        </div>
+        <div class="hours-table-wrap reveal">
+          <table class="hours-table" id="hoursTable"></table>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact" id="contact">
+      <div class="container contact-inner">
+        <p class="eyebrow reveal center">Ready When You Are</p>
+        <h2 class="reveal center">Book an Appointment</h2>
+        <p class="contact-sub reveal center">
+          Send us your idea, size, and placement — the fastest way to get a reply is Instagram.
+        </p>
+
+        <div class="contact-cards reveal">
+          <a href="#" id="instagramCard" class="contact-card" target="_blank" rel="noopener">
+            <span class="contact-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"/></svg>
+            </span>
+            <span class="contact-label">Instagram</span>
+            <span class="contact-value" id="instagramValue">@jctattoosaranay</span>
+          </a>
+          <a href="#" id="phoneCard" class="contact-card">
+            <span class="contact-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4.5 4.5h4l1.5 5-2.5 1.5a13 13 0 0 0 6 6l1.5-2.5 5 1.5v4a2 2 0 0 1-2.2 2A17.5 17.5 0 0 1 2.5 6.7 2 2 0 0 1 4.5 4.5z"/></svg>
+            </span>
+            <span class="contact-label">Phone</span>
+            <span class="contact-value" id="phoneValue">Coming soon</span>
+          </a>
+          <div class="contact-card contact-card-static">
+            <span class="contact-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12z"/><circle cx="12" cy="9" r="2.4"/></svg>
+            </span>
+            <span class="contact-label">Location</span>
+            <span class="contact-value" id="locationValue">Saranay</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <a href="#home" class="brand">
+        <img src="assets/brand/logo.jpeg" alt="JCTATTOO Saranay logo" class="brand-logo" />
+        <span class="brand-name">JCTATTOO <em>saranay</em></span>
+      </a>
+      <p class="footer-tagline">Tattoo &amp; Body Piercing</p>
+      <div class="footer-socials" id="footerSocials"></div>
+      <p class="footer-copy">&copy; <span id="year"></span> JCTATTOO Saranay. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <button class="lightbox-close" id="lightboxClose" aria-label="Close">&times;</button>
+    <button class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="Previous image">&#8249;</button>
+    <img src="" alt="" id="lightboxImg" />
+    <button class="lightbox-nav lightbox-next" id="lightboxNext" aria-label="Next image">&#8250;</button>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
