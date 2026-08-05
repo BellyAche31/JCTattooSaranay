@@ -61,19 +61,16 @@ a { color: inherit; text-decoration: none; }
 .skip-link:focus { left: 16px; top: 16px; }
 
 /* ---------- Texture + chrome ---------- */
+/* Static grain. This used to be 4x viewport (inset: -50%) repainting every
+   300ms, which is a lot of pixel work for texture nobody consciously sees —
+   it cost far more on phones than it added. */
 .grain {
   position: fixed;
-  inset: -50%;
+  inset: 0;
   z-index: 1;
   pointer-events: none;
-  opacity: 0.05;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)'/%3E%3C/svg%3E");
-  animation: grainshift 0.6s steps(2) infinite;
-}
-@keyframes grainshift {
-  0% { transform: translate(0, 0); }
-  50% { transform: translate(-2%, 1%); }
-  100% { transform: translate(1%, -1%); }
+  opacity: 0.045;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
 .cursor-glow {
@@ -387,8 +384,11 @@ a { color: inherit; text-decoration: none; }
   display: inline-flex;
   align-items: center;
   gap: 26px;
-  animation: marquee 30s linear infinite;
+  /* Duration is set from JS off the measured width so speed stays constant
+     no matter how many copies are needed to fill the screen. */
+  animation: marquee var(--marquee-duration, 30s) linear infinite;
   will-change: transform;
+  backface-visibility: hidden;
 }
 .marquee-track span {
   font-family: var(--display);
@@ -399,8 +399,8 @@ a { color: inherit; text-decoration: none; }
 }
 .marquee-track .dot { font-size: 0.85rem; opacity: 0.65; }
 @keyframes marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(-50%, 0, 0); }
 }
 
 /* ---------- Section shell ---------- */

@@ -43,11 +43,39 @@
     .map((s) => `<li><b>${s.value}</b><span>${s.label}</span></li>`)
     .join("");
 
-  // Marquee — built from the portfolio's own style tags, doubled for a seamless loop
+  // Marquee — built from the portfolio's own style tags.
+  // The animation translates the track by -50%, so ONE half must be wider than
+  // the viewport or the tape runs out mid-loop and visibly snaps. Repeat the
+  // word set until it is, then mirror it for the seamless half.
+  const marqueeTrack = $("marqueeTrack");
   const marqueeWords = [...new Set(SITE.portfolio.map((p) => p.tag))];
-  $("marqueeTrack").innerHTML = [...marqueeWords, ...marqueeWords]
-    .map((w) => `<span>${w}</span><span class="dot">✦</span>`)
-    .join("");
+  const MARQUEE_SPEED = 90; // px per second
+
+  function buildMarquee() {
+    const oneSet = marqueeWords
+      .map((w) => `<span>${w}</span><span class="dot">✦</span>`)
+      .join("");
+
+    marqueeTrack.innerHTML = oneSet;
+    const setWidth = marqueeTrack.scrollWidth;
+    if (!setWidth) return;
+
+    // Half the track needs to cover the viewport with room to spare.
+    const copies = Math.max(2, Math.ceil((window.innerWidth * 1.4) / setWidth));
+    const half = oneSet.repeat(copies);
+    marqueeTrack.innerHTML = half + half;
+
+    const halfWidth = marqueeTrack.scrollWidth / 2;
+    marqueeTrack.style.setProperty("--marquee-duration", `${halfWidth / MARQUEE_SPEED}s`);
+  }
+
+  buildMarquee();
+
+  let marqueeResizeTimer;
+  window.addEventListener("resize", () => {
+    clearTimeout(marqueeResizeTimer);
+    marqueeResizeTimer = setTimeout(buildMarquee, 200);
+  });
 
   // Services
   const servicesGrid = $("servicesGrid");
