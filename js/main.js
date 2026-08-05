@@ -30,6 +30,19 @@
   $("artistBio").textContent = SITE.artist.bio;
   if (SITE.motto) $("heroMotto").textContent = SITE.motto;
 
+  // About stats — derived from real content so they can never go stale.
+  // Deliberately NOT follower/review counts: those change on their own and
+  // a hardcoded copy silently becomes a lie.
+  const styleCount = new Set(SITE.portfolio.map((p) => p.tag)).size;
+  const piercingCount = SITE.piercingPricing.reduce((n, g) => n + g.items.length, 0);
+  $("aboutStats").innerHTML = [
+    { value: SITE.portfolio.length, label: "Pieces on show" },
+    { value: styleCount, label: "Styles covered" },
+    { value: piercingCount, label: "Piercings offered" },
+  ]
+    .map((s) => `<li><b>${s.value}</b><span>${s.label}</span></li>`)
+    .join("");
+
   // Marquee — built from the portfolio's own style tags, doubled for a seamless loop
   const marqueeWords = [...new Set(SITE.portfolio.map((p) => p.tag))];
   $("marqueeTrack").innerHTML = [...marqueeWords, ...marqueeWords]
