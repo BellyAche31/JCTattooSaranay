@@ -59,8 +59,25 @@ const SITE = {
     },
   ],
 
-  // Piercing price list — default jewelry only, per the shop's posted rate card.
   currency: "₱",
+
+  // Tattoo rates. Only the minimalist rate is a fixed number — everything
+  // bigger is quoted per design, so don't invent prices here.
+  tattooPricing: [
+    {
+      name: "Minimalist Tattoo",
+      price: 600,
+      blurb: "Small, simple line work — script, symbols, tiny fine line pieces.",
+    },
+    {
+      name: "Custom & Larger Pieces",
+      price: null,
+      priceLabel: "Quoted",
+      blurb: "Priced per design based on size, detail and placement. Send your idea for a quote.",
+    },
+  ],
+
+  // Piercing price list — default jewelry only, per the shop's posted rate card.
   piercingPricing: [
     {
       category: "Ear Piercings",

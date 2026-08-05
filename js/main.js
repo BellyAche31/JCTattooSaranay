@@ -61,6 +61,19 @@
     servicesGrid.appendChild(row);
   });
 
+  // Tattoo rates
+  const tattooRates = $("tattooRates");
+  SITE.tattooPricing.forEach((rate) => {
+    const card = document.createElement("div");
+    card.className = "tattoo-rate reveal" + (rate.price == null ? " is-quote" : "");
+    const price =
+      rate.price == null ? rate.priceLabel : `${SITE.currency}${rate.price}`;
+    card.innerHTML =
+      `<div class="tattoo-rate-head"><h4>${rate.name}</h4><span class="tattoo-rate-price">${price}</span></div>` +
+      `<p>${rate.blurb}</p>`;
+    tattooRates.appendChild(card);
+  });
+
   // Piercing pricing
   const pricingGrid = $("pricingGrid");
   SITE.piercingPricing.forEach((group) => {

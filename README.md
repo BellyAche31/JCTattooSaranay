@@ -26,6 +26,11 @@ images, contact info) is driven by `js/data.js`. Edit the `SITE` object there
 - Confirmation that the poster hours are current and are opening (not closing) times
 - An email address, if the shop uses one for bookings
 
+**Rates** live in `tattooPricing` and `piercingPricing` in `js/data.js`. A
+tattoo rate with `price: null` renders as a "Quoted" card instead of a
+number — use that for work that's priced per design rather than inventing
+a figure.
+
 To add a new portfolio photo: drop the image in `assets/portfolio/` and add
 an entry to the `portfolio` array in `js/data.js` (with a `tag` matching one
 of the existing style filters, or a new one — filters are generated

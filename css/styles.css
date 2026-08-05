@@ -640,6 +640,78 @@ a { color: inherit; text-decoration: none; }
 }
 
 /* ---------- Pricing ---------- */
+.rate-group-title {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--bone);
+  margin: 0 0 22px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--ghost);
+}
+.rate-group-title + .pricing-note { margin-top: -8px; }
+.tattoo-rates {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-bottom: 64px;
+}
+.tattoo-rate {
+  background: linear-gradient(150deg, rgba(255, 106, 0, 0.14), rgba(255, 106, 0, 0.03));
+  border: 1px solid rgba(255, 106, 0, 0.42);
+  padding: 30px 28px;
+  transition: border-color 0.3s ease, transform 0.3s ease;
+}
+.tattoo-rate:hover { border-color: var(--fire); transform: translateY(-3px); }
+.tattoo-rate.is-quote {
+  background: var(--char);
+  border-color: var(--ghost);
+  border-style: dashed;
+}
+.tattoo-rate-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+.tattoo-rate h4 {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(1.35rem, 2.6vw, 1.9rem);
+  line-height: 1;
+  text-transform: uppercase;
+  margin: 0;
+}
+.tattoo-rate-price {
+  font-family: var(--display);
+  font-size: clamp(1.6rem, 3.2vw, 2.5rem);
+  line-height: 1;
+  color: var(--fire);
+  white-space: nowrap;
+}
+.tattoo-rate.is-quote .tattoo-rate-price {
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--smoke);
+}
+.tattoo-rate p {
+  margin: 0;
+  color: var(--smoke);
+  line-height: 1.65;
+  font-size: 0.94rem;
+}
+
+@media (max-width: 760px) {
+  .tattoo-rates { grid-template-columns: 1fr; }
+}
+
 .pricing-note {
   font-family: var(--mono);
   font-size: 0.72rem;
