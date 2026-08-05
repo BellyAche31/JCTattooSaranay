@@ -89,16 +89,20 @@
     servicesGrid.appendChild(row);
   });
 
-  // Tattoo rates
+  // Tattoo rates. Quoted entries have no fixed price, so they become links
+  // to the contact section — that card's whole job is to start a conversation.
   const tattooRates = $("tattooRates");
   SITE.tattooPricing.forEach((rate) => {
-    const card = document.createElement("div");
-    card.className = "tattoo-rate reveal" + (rate.price == null ? " is-quote" : "");
-    const price =
-      rate.price == null ? rate.priceLabel : `${SITE.currency}${rate.price}`;
+    const isQuote = rate.price == null;
+    const card = document.createElement(isQuote ? "a" : "div");
+    card.className = "tattoo-rate reveal" + (isQuote ? " is-quote" : "");
+    if (isQuote) card.href = "#contact";
+    const price = isQuote ? rate.priceLabel : `${SITE.currency}${rate.price}`;
     card.innerHTML =
-      `<div class="tattoo-rate-head"><h4>${rate.name}</h4><span class="tattoo-rate-price">${price}</span></div>` +
-      `<p>${rate.blurb}</p>`;
+      `<div class="tattoo-rate-head"><h4>${rate.name}</h4>` +
+      `<span class="tattoo-rate-price">${price}</span></div>` +
+      `<p>${rate.blurb}</p>` +
+      (isQuote ? `<span class="tattoo-rate-cta">Get a quote <b aria-hidden="true">→</b></span>` : "");
     tattooRates.appendChild(card);
   });
 
