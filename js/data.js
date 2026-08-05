@@ -87,5 +87,130 @@ const SITE = {
       alt: "Tribal-style lower back tattoo",
       tag: "Tribal",
     },
+    {
+      src: "assets/portfolio/wave-calf.jpeg",
+      alt: "Fine line ocean wave tattoo on the calf",
+      tag: "Fine Line",
+    },
+    {
+      src: "assets/portfolio/floral-shoulder.jpeg",
+      alt: "Fine line floral vine tattoo across the shoulder",
+      tag: "Fine Line",
+    },
+    {
+      src: "assets/portfolio/koala-arm.jpeg",
+      alt: "Minimal koala outline tattoo on the forearm",
+      tag: "Fine Line",
+    },
+    {
+      src: "assets/portfolio/sun-moon-matching.jpeg",
+      alt: "Matching sun and moon tattoos, \"live by the sun, love by the moon\"",
+      tag: "Fine Line",
+    },
+    {
+      src: "assets/portfolio/eye-portrait.jpeg",
+      alt: "Illustrative sketch-style eye portrait tattoo",
+      tag: "Illustrative",
+    },
+    {
+      src: "assets/portfolio/bow-wrists-matching.jpeg",
+      alt: "Matching red fine line bow tattoos on two wrists",
+      tag: "Fine Line",
+    },
+    {
+      src: "assets/portfolio/lip-piercing.jpeg",
+      alt: "Vertical labret lip piercings with spike jewelry",
+      tag: "Piercing",
+    },
+    {
+      src: "assets/portfolio/bow-bicep.jpeg",
+      alt: "Traditional-style shaded bow tattoo on the bicep",
+      tag: "Traditional",
+    },
+    {
+      src: "assets/portfolio/elephant-arm.jpeg",
+      alt: "Illustrative dotwork elephant tattoo on the shoulder",
+      tag: "Illustrative",
+    },
+    {
+      src: "assets/portfolio/ear-piercing-1.jpeg",
+      alt: "Curated ear piercing set: rook, tragus, and lobe",
+      tag: "Piercing",
+    },
+    {
+      src: "assets/portfolio/cherub-cloud.jpeg",
+      alt: "Fine line cherub sleeping on a cloud tattoo",
+      tag: "Fine Line",
+    },
+    {
+      src: "assets/portfolio/ear-piercing-2.jpeg",
+      alt: "Ear piercing set with curved barbell and studs",
+      tag: "Piercing",
+    },
+    {
+      src: "assets/portfolio/nose-piercing.jpeg",
+      alt: "Simple nose stud piercing",
+      tag: "Piercing",
+    },
+    {
+      src: "assets/portfolio/scorpion-tribal.jpeg",
+      alt: "Bold black tribal scorpion tattoo",
+      tag: "Tribal",
+    },
+    {
+      src: "assets/portfolio/cartoon-split-face.jpeg",
+      alt: "Split-style cartoon character portrait tattoo",
+      tag: "Cartoon",
+    },
+    {
+      src: "assets/portfolio/bart-pig.jpeg",
+      alt: "Line art cartoon tattoo of a character riding a pig",
+      tag: "Cartoon",
+    },
+    {
+      src: "assets/portfolio/traditional-color.jpeg",
+      alt: "Bold color traditional-style tattoo",
+      tag: "Traditional",
+    },
+    {
+      src: "assets/portfolio/cherub-daisy.jpeg",
+      alt: "Fine line cherub and daisy flower tattoo",
+      tag: "Fine Line",
+    },
+    {
+      src: "assets/portfolio/rainbow-brush.jpeg",
+      alt: "Brush-stroke style color rainbow tattoo",
+      tag: "Illustrative",
+    },
+    {
+      src: "assets/portfolio/dnr-lettering.jpeg",
+      alt: "\"Do Not Resuscitate\" typewriter-style script tattoo",
+      tag: "Lettering",
+    },
+    {
+      src: "assets/portfolio/blue-daisies.jpeg",
+      alt: "Color fine line blue daisy bouquet tattoo",
+      tag: "Fine Line",
+    },
+    {
+      src: "assets/portfolio/ear-piercing-3.jpeg",
+      alt: "Ear piercing set with rook hoop and studs",
+      tag: "Piercing",
+    },
+    {
+      src: "assets/portfolio/cat-chain-gengar.jpeg",
+      alt: "Anime and pop-culture tattoo set: cat, chain cross, and ghost character",
+      tag: "Cartoon",
+    },
+    {
+      src: "assets/portfolio/ghost-tattooist.jpeg",
+      alt: "Playful ghost mascot tattoo holding a coffee and tattoo machine",
+      tag: "Cartoon",
+    },
+    {
+      src: "assets/portfolio/hercules-snake.jpeg",
+      alt: "Illustrative classical-style tattoo of a man wrestling a serpent",
+      tag: "Illustrative",
+    },
   ],
 };

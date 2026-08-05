@@ -104,6 +104,8 @@
     filtersWrap.appendChild(btn);
   });
 
+  const TILTS = [-2.5, 1.5, -1, 2.5, -3, 1, -1.5, 2, -2, 1.8];
+
   function renderGallery() {
     gallery.innerHTML = "";
     SITE.portfolio.forEach((item, index) => {
@@ -111,6 +113,7 @@
       el.className = "gallery-item reveal";
       el.dataset.tag = item.tag;
       el.dataset.index = index;
+      el.style.setProperty("--tilt", `${TILTS[index % TILTS.length]}deg`);
       el.innerHTML = `<img src="${item.src}" alt="${item.alt}" loading="lazy" /><span class="tag">${item.tag}</span>`;
       gallery.appendChild(el);
     });
@@ -129,6 +132,24 @@
       item.style.display = show ? "" : "none";
     });
   });
+
+  /* ---------- Surprise Me ---------- */
+  document.getElementById("surpriseBtn").addEventListener("click", () => {
+    const visible = Array.from(document.querySelectorAll(".gallery-item")).filter(
+      (item) => item.style.display !== "none"
+    );
+    if (!visible.length) return;
+    const pick = visible[Math.floor(Math.random() * visible.length)];
+    pick.scrollIntoView({ behavior: "smooth", block: "center" });
+    pick.classList.remove("pulse");
+    void pick.offsetWidth;
+    pick.classList.add("pulse");
+    setTimeout(() => openLightboxEl(pick), 500);
+  });
+
+  function openLightboxEl(el) {
+    openLightbox(Number(el.dataset.index));
+  }
 
   /* ---------- Lightbox ---------- */
   const lightbox = document.getElementById("lightbox");
