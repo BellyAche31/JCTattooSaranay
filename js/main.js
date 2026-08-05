@@ -1,9 +1,11 @@
 (() => {
   "use strict";
 
-  document.getElementById("year").textContent = new Date().getFullYear();
+  const $ = (id) => document.getElementById(id);
 
-  /* ---------- Reveal-on-scroll (declared early: renderGallery() below depends on it) ---------- */
+  $("year").textContent = new Date().getFullYear();
+
+  /* ---------- Reveal-on-scroll (declared early: renderGallery() depends on it) ---------- */
   let revealObserver;
   function observeReveals() {
     if (!revealObserver) {
@@ -16,61 +18,69 @@
             }
           });
         },
-        { threshold: 0.15 }
+        { threshold: 0.12, rootMargin: "0px 0px -60px 0px" }
       );
     }
     document.querySelectorAll(".reveal:not(.is-visible)").forEach((el) => revealObserver.observe(el));
   }
 
-  /* ---------- Populate content from SITE config ---------- */
+  /* ---------- Content from SITE config ---------- */
   document.title = `${SITE.businessName} — ${SITE.tagline}`;
-  document.querySelectorAll(".brand-name").forEach((el) => {
-    el.innerHTML = `${SITE.shortName} <em>saranay</em>`;
-  });
+  $("artistName").textContent = SITE.artist.name;
+  $("artistBio").textContent = SITE.artist.bio;
+  if (SITE.motto) $("heroMotto").textContent = SITE.motto;
 
-  document.getElementById("artistName").textContent = SITE.artist.name;
-  document.getElementById("artistBio").textContent = SITE.artist.bio;
-  if (SITE.motto) document.getElementById("heroMotto").textContent = SITE.motto;
+  // Marquee — built from the portfolio's own style tags, doubled for a seamless loop
+  const marqueeWords = [...new Set(SITE.portfolio.map((p) => p.tag))];
+  $("marqueeTrack").innerHTML = [...marqueeWords, ...marqueeWords]
+    .map((w) => `<span>${w}</span><span class="dot">✦</span>`)
+    .join("");
 
   // Services
-  const servicesGrid = document.getElementById("servicesGrid");
-  SITE.services.forEach((service) => {
-    const card = document.createElement("div");
-    card.className = "service-card reveal";
-    card.innerHTML = `<h3>${service.title}</h3><p>${service.description}</p>`;
-    servicesGrid.appendChild(card);
+  const servicesGrid = $("servicesGrid");
+  SITE.services.forEach((service, i) => {
+    const row = document.createElement("div");
+    row.className = "service-row reveal";
+    row.innerHTML =
+      `<span class="service-row-num">${String(i + 1).padStart(2, "0")}</span>` +
+      `<h3>${service.title}</h3>` +
+      `<p>${service.description}</p>`;
+    servicesGrid.appendChild(row);
   });
 
   // Piercing pricing
-  const pricingGrid = document.getElementById("pricingGrid");
+  const pricingGrid = $("pricingGrid");
   SITE.piercingPricing.forEach((group) => {
     const card = document.createElement("div");
     card.className = "pricing-card reveal";
     const rows = group.items
       .map(
         (item) =>
-          `<li><span class="pricing-item-name">${item.name}</span><span class="pricing-item-price">${SITE.currency}${item.price}</span></li>`
+          `<li><span class="pricing-item-name">${item.name}</span>` +
+          `<span class="pricing-item-price">${SITE.currency}${item.price}</span></li>`
       )
       .join("");
     card.innerHTML = `<h3>${group.category}</h3><ul class="pricing-list">${rows}</ul>`;
     pricingGrid.appendChild(card);
   });
 
-  // Hours
-  const hoursTable = document.getElementById("hoursTable");
+  // Hours — flag today's row
+  const hoursList = $("hoursList");
+  const todayName = new Date().toLocaleDateString("en-US", { weekday: "long" });
   SITE.hours.forEach(({ day, time }) => {
-    const row = document.createElement("tr");
-    row.innerHTML = `<td>${day}</td><td>${time}</td>`;
-    hoursTable.appendChild(row);
+    const row = document.createElement("div");
+    row.className = "hours-row reveal" + (day === todayName ? " today" : "");
+    row.innerHTML = `<span class="hours-day">${day}</span><span class="hours-time">${time}</span>`;
+    hoursList.appendChild(row);
   });
 
   // Contact
-  const instagramCard = document.getElementById("instagramCard");
+  const instagramCard = $("instagramCard");
   instagramCard.href = SITE.instagramUrl;
-  document.getElementById("instagramValue").textContent = SITE.instagramHandle;
+  $("instagramValue").textContent = SITE.instagramHandle;
 
-  const phoneCard = document.getElementById("phoneCard");
-  const phoneValue = document.getElementById("phoneValue");
+  const phoneCard = $("phoneCard");
+  const phoneValue = $("phoneValue");
   if (SITE.phone) {
     // Philippine local mobile numbers start with 0 (e.g. 0991 240 1492) —
     // swap that leading 0 for the +63 country code for the tel: link.
@@ -81,15 +91,14 @@
   } else {
     phoneCard.removeAttribute("href");
     phoneCard.style.cursor = "default";
-    phoneValue.textContent = SITE.phoneDisplay;
+    phoneValue.textContent = SITE.phoneDisplay || "Coming soon";
   }
 
-  const locationCard = document.getElementById("locationCard");
+  const locationCard = $("locationCard");
   locationCard.href = SITE.mapsUrl;
-  document.getElementById("locationValue").textContent = SITE.location;
+  $("locationValue").textContent = SITE.location;
 
   // Footer socials
-  const footerSocials = document.getElementById("footerSocials");
   const SOCIAL_ICONS = {
     Instagram:
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"/></svg>',
@@ -98,27 +107,29 @@
     TikTok:
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 3v10.5a3.5 3.5 0 1 1-3-3.47M14 3a5 5 0 0 0 5 5"/></svg>',
   };
-  const socialLinks = [
+  const footerSocials = $("footerSocials");
+  [
     { url: SITE.instagramUrl, label: "Instagram" },
     { url: SITE.facebookUrl, label: "Facebook" },
     { url: SITE.tiktokUrl, label: "TikTok" },
-  ].filter((s) => s.url);
-  socialLinks.forEach((s) => {
-    const a = document.createElement("a");
-    a.href = s.url;
-    a.target = "_blank";
-    a.rel = "noopener";
-    a.setAttribute("aria-label", s.label);
-    a.innerHTML = SOCIAL_ICONS[s.label];
-    footerSocials.appendChild(a);
-  });
+  ]
+    .filter((s) => s.url)
+    .forEach((s) => {
+      const a = document.createElement("a");
+      a.href = s.url;
+      a.target = "_blank";
+      a.rel = "noopener";
+      a.setAttribute("aria-label", s.label);
+      a.innerHTML = SOCIAL_ICONS[s.label];
+      footerSocials.appendChild(a);
+    });
 
   /* ---------- Portfolio gallery ---------- */
-  const gallery = document.getElementById("gallery");
-  const filtersWrap = document.getElementById("galleryFilters");
-  const tags = ["all", ...new Set(SITE.portfolio.map((p) => p.tag))];
+  const gallery = $("gallery");
+  const filtersWrap = $("galleryFilters");
+  const TILTS = [-2, 1.4, -1, 2, -1.6, 1, -2.4, 1.8, -1.2, 2.2];
 
-  tags.slice(1).forEach((tag) => {
+  [...new Set(SITE.portfolio.map((p) => p.tag))].forEach((tag) => {
     const btn = document.createElement("button");
     btn.className = "filter-btn";
     btn.dataset.filter = tag;
@@ -126,22 +137,17 @@
     filtersWrap.appendChild(btn);
   });
 
-  const TILTS = [-2.5, 1.5, -1, 2.5, -3, 1, -1.5, 2, -2, 1.8];
-
-  function renderGallery() {
-    gallery.innerHTML = "";
-    SITE.portfolio.forEach((item, index) => {
-      const el = document.createElement("figure");
-      el.className = "gallery-item reveal";
-      el.dataset.tag = item.tag;
-      el.dataset.index = index;
-      el.style.setProperty("--tilt", `${TILTS[index % TILTS.length]}deg`);
-      el.innerHTML = `<img src="${item.src}" alt="${item.alt}" loading="lazy" /><span class="tag">${item.tag}</span>`;
-      gallery.appendChild(el);
-    });
-    observeReveals();
-  }
-  renderGallery();
+  SITE.portfolio.forEach((item, index) => {
+    const el = document.createElement("figure");
+    el.className = "gallery-item reveal";
+    el.dataset.tag = item.tag;
+    el.dataset.index = index;
+    el.style.setProperty("--tilt", `${TILTS[index % TILTS.length]}deg`);
+    el.innerHTML =
+      `<img src="${item.src}" alt="${item.alt}" loading="lazy" />` +
+      `<span class="tag">${item.tag}</span>`;
+    gallery.appendChild(el);
+  });
 
   filtersWrap.addEventListener("click", (e) => {
     const btn = e.target.closest(".filter-btn");
@@ -150,13 +156,12 @@
     btn.classList.add("active");
     const filter = btn.dataset.filter;
     document.querySelectorAll(".gallery-item").forEach((item) => {
-      const show = filter === "all" || item.dataset.tag === filter;
-      item.style.display = show ? "" : "none";
+      item.style.display = filter === "all" || item.dataset.tag === filter ? "" : "none";
     });
   });
 
-  /* ---------- Surprise Me ---------- */
-  document.getElementById("surpriseBtn").addEventListener("click", () => {
+  /* ---------- Surprise me ---------- */
+  $("surpriseBtn").addEventListener("click", () => {
     const visible = Array.from(document.querySelectorAll(".gallery-item")).filter(
       (item) => item.style.display !== "none"
     );
@@ -166,18 +171,21 @@
     pick.classList.remove("pulse");
     void pick.offsetWidth;
     pick.classList.add("pulse");
-    setTimeout(() => openLightboxEl(pick), 500);
+    setTimeout(() => openLightbox(Number(pick.dataset.index)), 520);
   });
 
-  function openLightboxEl(el) {
-    openLightbox(Number(el.dataset.index));
-  }
-
   /* ---------- Lightbox ---------- */
-  const lightbox = document.getElementById("lightbox");
-  const lightboxImg = document.getElementById("lightboxImg");
+  const lightbox = $("lightbox");
+  const lightboxImg = $("lightboxImg");
+  const lightboxCaption = $("lightboxCaption");
   let currentIndex = 0;
 
+  function updateLightboxImage() {
+    const item = SITE.portfolio[currentIndex];
+    lightboxImg.src = item.src;
+    lightboxImg.alt = item.alt;
+    lightboxCaption.textContent = `${item.tag} — ${currentIndex + 1}/${SITE.portfolio.length}`;
+  }
   function openLightbox(index) {
     currentIndex = index;
     updateLightboxImage();
@@ -190,47 +198,66 @@
     lightbox.setAttribute("aria-hidden", "true");
     document.body.style.overflow = "";
   }
-  function updateLightboxImage() {
-    const item = SITE.portfolio[currentIndex];
-    lightboxImg.src = item.src;
-    lightboxImg.alt = item.alt;
-  }
-  function showNext(delta) {
+  function step(delta) {
     currentIndex = (currentIndex + delta + SITE.portfolio.length) % SITE.portfolio.length;
     updateLightboxImage();
   }
 
   gallery.addEventListener("click", (e) => {
     const item = e.target.closest(".gallery-item");
-    if (!item) return;
-    openLightbox(Number(item.dataset.index));
+    if (item) openLightbox(Number(item.dataset.index));
   });
-
-  document.getElementById("lightboxClose").addEventListener("click", closeLightbox);
-  document.getElementById("lightboxPrev").addEventListener("click", () => showNext(-1));
-  document.getElementById("lightboxNext").addEventListener("click", () => showNext(1));
+  $("lightboxClose").addEventListener("click", closeLightbox);
+  $("lightboxPrev").addEventListener("click", () => step(-1));
+  $("lightboxNext").addEventListener("click", () => step(1));
   lightbox.addEventListener("click", (e) => {
     if (e.target === lightbox) closeLightbox();
   });
   document.addEventListener("keydown", (e) => {
     if (!lightbox.classList.contains("is-open")) return;
     if (e.key === "Escape") closeLightbox();
-    if (e.key === "ArrowLeft") showNext(-1);
-    if (e.key === "ArrowRight") showNext(1);
+    if (e.key === "ArrowLeft") step(-1);
+    if (e.key === "ArrowRight") step(1);
   });
 
-  /* ---------- Header scroll state ---------- */
-  const header = document.getElementById("siteHeader");
-  const onScroll = () => header.classList.toggle("scrolled", window.scrollY > 20);
+  /* ---------- Header state + scroll progress + nav highlighting ---------- */
+  const header = $("siteHeader");
+  const scrollBar = $("scrollBar");
+  const navLinks = Array.from(document.querySelectorAll('.primary-nav a[href^="#"]:not(.nav-cta)'));
+  const sections = navLinks
+    .map((a) => document.querySelector(a.getAttribute("href")))
+    .filter(Boolean);
+
+  let ticking = false;
+  function onScroll() {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => {
+      const y = window.scrollY;
+      header.classList.toggle("scrolled", y > 20);
+
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      scrollBar.style.width = `${max > 0 ? (y / max) * 100 : 0}%`;
+
+      const mark = y + window.innerHeight * 0.32;
+      let active = -1;
+      sections.forEach((sec, i) => {
+        if (sec.offsetTop <= mark) active = i;
+      });
+      navLinks.forEach((a, i) => a.classList.toggle("active", i === active));
+
+      ticking = false;
+    });
+  }
   onScroll();
   window.addEventListener("scroll", onScroll, { passive: true });
 
   /* ---------- Mobile nav ---------- */
-  const navToggle = document.getElementById("navToggle");
-  const primaryNav = document.getElementById("primaryNav");
+  const navToggle = $("navToggle");
+  const primaryNav = $("primaryNav");
   navToggle.addEventListener("click", () => {
-    const isOpen = primaryNav.classList.toggle("is-open");
-    navToggle.setAttribute("aria-expanded", String(isOpen));
+    const open = primaryNav.classList.toggle("is-open");
+    navToggle.setAttribute("aria-expanded", String(open));
   });
   primaryNav.querySelectorAll("a").forEach((a) =>
     a.addEventListener("click", () => {
@@ -238,6 +265,28 @@
       navToggle.setAttribute("aria-expanded", "false");
     })
   );
+
+  /* ---------- Cursor glow (pointer devices only) ---------- */
+  const glow = $("cursorGlow");
+  if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+    let gx = 0, gy = 0, raf = false;
+    window.addEventListener(
+      "mousemove",
+      (e) => {
+        gx = e.clientX;
+        gy = e.clientY;
+        glow.classList.add("on");
+        if (raf) return;
+        raf = true;
+        requestAnimationFrame(() => {
+          glow.style.transform = `translate(${gx}px, ${gy}px)`;
+          raf = false;
+        });
+      },
+      { passive: true }
+    );
+    document.addEventListener("mouseleave", () => glow.classList.remove("on"));
+  }
 
   observeReveals();
 })();
