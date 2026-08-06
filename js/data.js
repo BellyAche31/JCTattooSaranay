@@ -71,7 +71,9 @@ const SITE = {
     "Lettering",
     "Traditional",
     "Tribal",
+    "Anime",
     "Cartoon",
+    "Cover-Up",
     "Piercing",
   ],
 
@@ -302,6 +304,168 @@ const SITE = {
       src: "assets/portfolio/hercules-snake.jpeg",
       alt: "Illustrative classical-style tattoo of a man wrestling a serpent",
       tag: "Illustrative",
+    },
+
+    // --- Fine line ---
+    {
+      src: "assets/portfolio/ornamental-sternum.jpg",
+      alt: "Ornamental fine line sternum and stomach tattoo with symmetrical flourishes",
+      tag: "Fine Line",
+    },
+    {
+      src: "assets/portfolio/red-rose-chest.jpg",
+      alt: "Red ink fine line rose tattoo on the chest",
+      tag: "Fine Line",
+    },
+    {
+      src: "assets/portfolio/red-butterflies-ear.jpg",
+      alt: "Three red fine line butterflies trailing down behind the ear",
+      tag: "Fine Line",
+    },
+    {
+      src: "assets/portfolio/red-butterfly-arm.jpg",
+      alt: "Red ink butterfly tattoo with dripping wing detail on the forearm",
+      tag: "Fine Line",
+    },
+    {
+      src: "assets/portfolio/red-flames-ankle.jpg",
+      alt: "Red flame band tattoo wrapping around the ankle",
+      tag: "Fine Line",
+    },
+    {
+      src: "assets/portfolio/paw-prints-forearm.jpg",
+      alt: "Trail of solid black paw print tattoos up the forearm",
+      tag: "Fine Line",
+    },
+
+    // --- Illustrative ---
+    {
+      src: "assets/portfolio/dragon-blossom-sleeve.jpg",
+      alt: "Black and grey dragon wrapped in pink cherry blossoms across the upper arm",
+      tag: "Illustrative",
+    },
+    {
+      src: "assets/portfolio/koi-yin-yang.jpg",
+      alt: "Two koi fish arranged as a yin and yang on the forearm",
+      tag: "Illustrative",
+    },
+    {
+      src: "assets/portfolio/scorpion-shoulder.jpg",
+      alt: "Realistic black and grey scorpion tattoo on the shoulder",
+      tag: "Illustrative",
+    },
+    {
+      src: "assets/portfolio/black-widow-shoulder.jpg",
+      alt: "Black widow spider tattoo with red marking on the shoulder",
+      tag: "Illustrative",
+    },
+    {
+      src: "assets/portfolio/flash-set-arm.jpg",
+      alt: "Arm set of black and grey flash: spider, theatre masks, praying hands and a skull pizza slice",
+      tag: "Illustrative",
+    },
+    {
+      src: "assets/portfolio/cross-forearm.jpg",
+      alt: "Bold solid black cross tattoo on the forearm",
+      tag: "Illustrative",
+    },
+
+    // --- Lettering ---
+    {
+      src: "assets/portfolio/year-1997.jpg",
+      alt: "Gothic numerals reading 1997 on the inner arm",
+      tag: "Lettering",
+    },
+    {
+      src: "assets/portfolio/year-2004.jpg",
+      alt: "Blackletter numerals reading 2004 on the inner arm",
+      tag: "Lettering",
+    },
+    {
+      src: "assets/portfolio/angel-number-444.jpg",
+      alt: "Red ink 444 with sparkles on the inner arm",
+      tag: "Lettering",
+    },
+    {
+      src: "assets/portfolio/latin-script-thigh.jpg",
+      alt: "Red script tattoo reading \"sine audacia nulla gloria\" on the thigh",
+      tag: "Lettering",
+    },
+    {
+      src: "assets/portfolio/name-script-hip.jpg",
+      alt: "Fine line cursive name tattoo on the hip",
+      tag: "Lettering",
+    },
+    {
+      src: "assets/portfolio/kanji-ai-leg.jpg",
+      alt: "Red kanji character tattoo on the lower leg",
+      tag: "Lettering",
+    },
+    {
+      src: "assets/portfolio/kanji-ai-neck.jpg",
+      alt: "Red kanji character tattoo on the side of the neck",
+      tag: "Lettering",
+    },
+    {
+      src: "assets/portfolio/kanji-ai-ear.jpg",
+      alt: "Red kanji character tattoo behind the ear",
+      tag: "Lettering",
+    },
+    {
+      src: "assets/portfolio/kanji-ribs.jpg",
+      alt: "Vertical black kanji lettering tattoo along the ribs",
+      tag: "Lettering",
+    },
+    {
+      src: "assets/portfolio/kanji-ear.jpg",
+      alt: "Small vertical kanji lettering tattoo behind the ear",
+      tag: "Lettering",
+    },
+
+    // --- Anime ---
+    {
+      src: "assets/portfolio/goku-arm.jpg",
+      alt: "Black and grey anime character portraits on the upper arm",
+      tag: "Anime",
+    },
+    {
+      src: "assets/portfolio/levi-arm.jpg",
+      alt: "Fine line anime portrait with vertical Japanese lettering on the forearm",
+      tag: "Anime",
+    },
+    {
+      src: "assets/portfolio/onepiece-crew.jpg",
+      alt: "Colour anime crew portraits on the upper arm",
+      tag: "Anime",
+    },
+    {
+      src: "assets/portfolio/chibi-duo.jpg",
+      alt: "Chibi-style anime character pair on the upper arm",
+      tag: "Anime",
+    },
+    {
+      src: "assets/portfolio/zodiac-akatsuki.jpg",
+      alt: "Red and black zodiac symbol above a red anime cloud on the forearm",
+      tag: "Anime",
+    },
+    {
+      src: "assets/portfolio/pokeball-dotwork.jpg",
+      alt: "Dotwork shaded poke ball tattoo on the forearm",
+      tag: "Anime",
+    },
+
+    // --- Cartoon ---
+    {
+      src: "assets/portfolio/mickey-forearm.jpg",
+      alt: "Colour cartoon mouse character tattoo on the forearm",
+      tag: "Cartoon",
+    },
+
+    // --- Cover-up ---
+    {
+      src: "assets/portfolio/rose-coverup.jpg",
+      alt: "Red and green rose tattoo covering previous work on the collarbone",
+      tag: "Cover-Up",
     },
   ],
 };
