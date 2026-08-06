@@ -61,6 +61,20 @@ const SITE = {
 
   currency: "₱",
 
+  // Gallery grouping. The portfolio is sorted into this order at render time,
+  // and the filter buttons + marquee follow it, so photos can be appended to
+  // `portfolio` below in any order and still land in the right group.
+  // Any tag not listed here sorts to the end.
+  styleOrder: [
+    "Fine Line",
+    "Illustrative",
+    "Lettering",
+    "Traditional",
+    "Tribal",
+    "Cartoon",
+    "Piercing",
+  ],
+
   // Tattoo rates. Only the minimalist rate is a fixed number — everything
   // bigger is quoted per design, so don't invent prices here.
   tattooPricing: [

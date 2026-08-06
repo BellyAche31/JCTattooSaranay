@@ -24,6 +24,17 @@
     document.querySelectorAll(".reveal:not(.is-visible)").forEach((el) => revealObserver.observe(el));
   }
 
+  /* ---------- Group the portfolio by style ----------
+     Sorted in place before anything reads it, so the gallery, filter order,
+     marquee and lightbox indices all stay in agreement. Sort is stable, so
+     pieces keep their relative order within a category. */
+  const styleOrder = SITE.styleOrder || [];
+  const styleRank = (tag) => {
+    const i = styleOrder.indexOf(tag);
+    return i === -1 ? styleOrder.length : i; // untagged/unknown styles go last
+  };
+  SITE.portfolio.sort((a, b) => styleRank(a.tag) - styleRank(b.tag));
+
   /* ---------- Content from SITE config ---------- */
   document.title = `${SITE.businessName} — ${SITE.tagline}`;
   $("artistName").textContent = SITE.artist.name;
