@@ -24,6 +24,83 @@
     document.querySelectorAll(".reveal:not(.is-visible)").forEach((el) => revealObserver.observe(el));
   }
 
+  /* ---------- Age gate ----------
+     Shown until the visitor confirms; the answer is remembered so it does not
+     nag on every visit. Deliberately does NOT hard-block under-18s — a minor
+     can still be tattooed here with a guardian present, so the second step
+     states the requirements instead of turning them away. */
+  const GATE_KEY = "jct-age-ack";
+  const gate = $("ageGate");
+  const gateCfg = SITE.ageGate;
+
+  document.querySelectorAll("[data-min-age]").forEach((el) => {
+    el.textContent = gateCfg.minAge;
+  });
+  $("ageNumTitle").textContent = gateCfg.minAge;
+  $("ageWatermark").textContent = `${gateCfg.minAge}+`;
+  $("ageReqs").innerHTML = gateCfg.requirements.map((r) => `<li>${r}</li>`).join("");
+  $("ageNote").textContent = gateCfg.note;
+  $("footerLegal").textContent =
+    `You must be ${gateCfg.minAge} or older to be tattooed or pierced. ` +
+    `Under ${gateCfg.minAge}s require a parent or legal guardian present, with valid ID and signed consent. ` +
+    gateCfg.note;
+
+  let gateAcked = false;
+  try {
+    gateAcked = localStorage.getItem(GATE_KEY) === "1";
+  } catch (e) {
+    // Private browsing / storage disabled — just show the gate this session.
+  }
+
+  function showStep(name) {
+    gate.querySelectorAll(".age-step").forEach((s) => {
+      s.classList.toggle("is-active", s.dataset.step === name);
+    });
+    const firstBtn = gate.querySelector(".age-step.is-active .age-btn");
+    if (firstBtn) firstBtn.focus();
+  }
+
+  function closeGate() {
+    try {
+      localStorage.setItem(GATE_KEY, "1");
+    } catch (e) {
+      /* storage unavailable — the gate simply reappears next visit */
+    }
+    gate.hidden = true;
+    document.body.style.overflow = "";
+  }
+
+  if (!gateAcked) {
+    gate.hidden = false;
+    document.body.style.overflow = "hidden";
+    showStep("ask");
+
+    gate.addEventListener("click", (e) => {
+      const btn = e.target.closest("[data-action]");
+      if (!btn) return;
+      const action = btn.dataset.action;
+      if (action === "yes" || action === "accept") closeGate();
+      else if (action === "no") showStep("minor");
+      else if (action === "back") showStep("ask");
+    });
+
+    // Keep tab focus inside the dialog while it is open.
+    gate.addEventListener("keydown", (e) => {
+      if (e.key !== "Tab") return;
+      const items = [...gate.querySelectorAll(".age-step.is-active .age-btn")];
+      if (!items.length) return;
+      const first = items[0];
+      const last = items[items.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    });
+  }
+
   /* ---------- Group the portfolio by style ----------
      Sorted in place before anything reads it, so the gallery, filter order,
      marquee and lightbox indices all stay in agreement. Sort is stable, so
@@ -144,9 +221,26 @@
   });
 
   // Contact
+  const facebookCard = $("facebookCard");
+  if (SITE.facebookUrl) {
+    facebookCard.href = SITE.facebookUrl;
+    $("facebookValue").textContent = SITE.facebookName || "Facebook Page";
+  } else {
+    facebookCard.remove();
+  }
+
   const instagramCard = $("instagramCard");
   instagramCard.href = SITE.instagramUrl;
   $("instagramValue").textContent = SITE.instagramHandle;
+
+  // Walk-ins
+  if (SITE.walkIn) {
+    $("walkInLabel").textContent = SITE.walkIn.label;
+    $("walkInTime").textContent = SITE.walkIn.time;
+    $("walkInBlurb").textContent = SITE.walkIn.blurb;
+  } else {
+    $("walkIn").remove();
+  }
 
   const phoneCard = $("phoneCard");
   const phoneValue = $("phoneValue");
@@ -206,41 +300,94 @@
     filtersWrap.appendChild(btn);
   });
 
-  SITE.portfolio.forEach((item, index) => {
-    const el = document.createElement("figure");
-    el.className = "gallery-item reveal";
-    el.dataset.tag = item.tag;
-    el.dataset.index = index;
-    el.style.setProperty("--tilt", `${TILTS[index % TILTS.length]}deg`);
-    el.innerHTML =
-      `<img src="${item.src}" alt="${item.alt}" loading="lazy" />` +
-      `<span class="tag">${item.tag}</span>`;
-    gallery.appendChild(el);
+  /* Paged gallery. 60 pieces at once is a wall of images and a lot of bytes,
+     so only PAGE_SIZE are rendered up front and more are appended on demand.
+     `activeIndices` is the currently filtered set, and the lightbox steps
+     through that same set so arrow keys stay inside what you're browsing. */
+  const PAGE_SIZE = 12;
+  const loadMoreBtn = $("loadMore");
+  const loadMoreCount = $("loadMoreCount");
+  let currentFilter = "all";
+  let shown = 0;
+  let activeIndices = [];
+
+  function matching(filter) {
+    return SITE.portfolio
+      .map((item, index) => ({ item, index }))
+      .filter(({ item }) => filter === "all" || item.tag === filter)
+      .map(({ index }) => index);
+  }
+
+  function appendTiles(count) {
+    const slice = activeIndices.slice(shown, shown + count);
+    const frag = document.createDocumentFragment();
+    slice.forEach((index) => {
+      const item = SITE.portfolio[index];
+      const el = document.createElement("figure");
+      el.className = "gallery-item reveal";
+      el.dataset.tag = item.tag;
+      el.dataset.index = index;
+      el.style.setProperty("--tilt", `${TILTS[index % TILTS.length]}deg`);
+      el.innerHTML =
+        `<img src="${item.src}" alt="${item.alt}" loading="lazy" />` +
+        `<span class="tag">${item.tag}</span>`;
+      frag.appendChild(el);
+    });
+    gallery.appendChild(frag);
+    shown += slice.length;
+    observeReveals();
+    updateLoadMore();
+  }
+
+  function updateLoadMore() {
+    const remaining = activeIndices.length - shown;
+    loadMoreBtn.hidden = remaining <= 0;
+    loadMoreCount.textContent = remaining > 0 ? `+${remaining}` : "";
+  }
+
+  function renderGallery(filter) {
+    currentFilter = filter;
+    activeIndices = matching(filter);
+    gallery.innerHTML = "";
+    shown = 0;
+    appendTiles(PAGE_SIZE);
+  }
+
+  renderGallery("all");
+
+  loadMoreBtn.addEventListener("click", () => {
+    appendTiles(PAGE_SIZE);
+    if (loadMoreBtn.hidden) {
+      // Nothing left to load — move focus somewhere sensible for keyboard users.
+      gallery.lastElementChild?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }
   });
 
   filtersWrap.addEventListener("click", (e) => {
     const btn = e.target.closest(".filter-btn");
-    if (!btn) return;
+    if (!btn || btn.dataset.filter === currentFilter) return;
     filtersWrap.querySelectorAll(".filter-btn").forEach((b) => b.classList.remove("active"));
     btn.classList.add("active");
-    const filter = btn.dataset.filter;
-    document.querySelectorAll(".gallery-item").forEach((item) => {
-      item.style.display = filter === "all" || item.dataset.tag === filter ? "" : "none";
-    });
+    renderGallery(btn.dataset.filter);
   });
 
   /* ---------- Surprise me ---------- */
   $("surpriseBtn").addEventListener("click", () => {
-    const visible = Array.from(document.querySelectorAll(".gallery-item")).filter(
-      (item) => item.style.display !== "none"
-    );
-    if (!visible.length) return;
-    const pick = visible[Math.floor(Math.random() * visible.length)];
-    pick.scrollIntoView({ behavior: "smooth", block: "center" });
-    pick.classList.remove("pulse");
-    void pick.offsetWidth;
-    pick.classList.add("pulse");
-    setTimeout(() => openLightbox(Number(pick.dataset.index)), 520);
+    if (!activeIndices.length) return;
+    // Pick from the whole filtered set, not just what's rendered, so unloaded
+    // pieces are still reachable.
+    const pick = activeIndices[Math.floor(Math.random() * activeIndices.length)];
+    const position = activeIndices.indexOf(pick);
+    while (shown <= position) appendTiles(PAGE_SIZE);
+
+    const el = gallery.querySelector(`.gallery-item[data-index="${pick}"]`);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth", block: "center" });
+      el.classList.remove("pulse");
+      void el.offsetWidth;
+      el.classList.add("pulse");
+    }
+    setTimeout(() => openLightbox(pick), 520);
   });
 
   /* ---------- Lightbox ---------- */
@@ -253,7 +400,9 @@
     const item = SITE.portfolio[currentIndex];
     lightboxImg.src = item.src;
     lightboxImg.alt = item.alt;
-    lightboxCaption.textContent = `${item.tag} — ${currentIndex + 1}/${SITE.portfolio.length}`;
+    // Count within the active filter, so "3/6" matches what's on screen.
+    const position = activeIndices.indexOf(currentIndex);
+    lightboxCaption.textContent = `${item.tag} — ${position + 1}/${activeIndices.length}`;
   }
   function openLightbox(index) {
     currentIndex = index;
@@ -268,7 +417,12 @@
     document.body.style.overflow = "";
   }
   function step(delta) {
-    currentIndex = (currentIndex + delta + SITE.portfolio.length) % SITE.portfolio.length;
+    // Walk the filtered set, not the whole portfolio, so arrows never jump to
+    // a piece that isn't in the category you're browsing.
+    if (!activeIndices.length) return;
+    const position = activeIndices.indexOf(currentIndex);
+    const next = (position + delta + activeIndices.length) % activeIndices.length;
+    currentIndex = activeIndices[next];
     updateLightboxImage();
   }
 

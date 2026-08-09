@@ -14,6 +14,52 @@
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
 
+  <!-- ===================== AGE GATE ===================== -->
+  <div class="age-gate" id="ageGate" role="dialog" aria-modal="true" aria-labelledby="ageGateTitle" hidden>
+    <div class="age-gate-bg" aria-hidden="true"></div>
+
+    <div class="age-card" id="ageCard">
+      <span class="age-watermark" id="ageWatermark" aria-hidden="true">18+</span>
+
+      <!-- Step 1 -->
+      <div class="age-step is-active" data-step="ask">
+        <img src="assets/brand/logo.jpeg" alt="" class="age-badge" />
+        <p class="age-kicker">Age Verification</p>
+        <h2 class="age-title" id="ageGateTitle">
+          Are you <span class="age-num" id="ageNumTitle">18</span><br />or older?
+        </h2>
+        <p class="age-copy">
+          This site shows tattoo and body piercing work. Confirm your age to continue.
+        </p>
+        <div class="age-actions">
+          <button class="age-btn age-btn-yes" data-action="yes">Yes, I'm <span data-min-age>18</span>+</button>
+          <button class="age-btn age-btn-no" data-action="no">No, I'm under <span data-min-age>18</span></button>
+        </div>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="age-step" data-step="minor">
+        <span class="age-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+            <path d="M12 3.5 2.6 20h18.8L12 3.5z" /><path d="M12 10v4.4" /><circle cx="12" cy="17.4" r=".9" fill="currentColor" stroke="none" />
+          </svg>
+        </span>
+        <p class="age-kicker age-kicker-warn">Consent Required</p>
+        <h2 class="age-title age-title-sm">Bring a parent<br />or guardian</h2>
+        <p class="age-copy">
+          Clients under <span data-min-age>18</span> can still be tattooed or pierced, but not alone.
+          You'll need:
+        </p>
+        <ul class="age-reqs" id="ageReqs"></ul>
+        <p class="age-note" id="ageNote"></p>
+        <div class="age-actions">
+          <button class="age-btn age-btn-yes" data-action="accept">I understand</button>
+          <button class="age-btn age-btn-ghost" data-action="back">Go back</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="grain" aria-hidden="true"></div>
   <div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
   <div class="scroll-bar" id="scrollBar" aria-hidden="true"></div>
@@ -121,6 +167,13 @@
         </div>
 
         <div class="gallery" id="gallery"></div>
+
+        <div class="gallery-more">
+          <button class="load-more" id="loadMore">
+            <span id="loadMoreText">Load more</span>
+            <span class="load-more-count" id="loadMoreCount"></span>
+          </button>
+        </div>
       </div>
     </section>
 
@@ -161,7 +214,8 @@
         </div>
         <div class="hours-list" id="hoursList"></div>
         <p class="hours-note reveal">
-          Hours shift around holidays — message us on Instagram or call ahead before you come by.
+          Walk-ins welcome the whole time we're open. Hours shift around holidays —
+          message us on Facebook or call ahead before you come by.
         </p>
       </div>
     </section>
@@ -175,10 +229,16 @@
         </div>
 
         <p class="contact-lead reveal">
-          Send your idea, size and placement. Fastest reply is Instagram DM.
+          Send your idea, size and placement — or just walk in. Fastest reply is Facebook,
+          the owner answers there.
         </p>
 
         <div class="contact-rows reveal">
+          <a href="#" id="facebookCard" class="contact-row is-primary" target="_blank" rel="noopener">
+            <span class="contact-row-label">Facebook <b class="contact-flag">Fastest</b></span>
+            <span class="contact-row-value" id="facebookValue"></span>
+            <span class="contact-row-arrow" aria-hidden="true">↗</span>
+          </a>
           <a href="#" id="instagramCard" class="contact-row" target="_blank" rel="noopener">
             <span class="contact-row-label">Instagram</span>
             <span class="contact-row-value" id="instagramValue"></span>
@@ -195,6 +255,14 @@
             <span class="contact-row-arrow" aria-hidden="true">↗</span>
           </a>
         </div>
+
+        <div class="walkin reveal" id="walkIn">
+          <div class="walkin-main">
+            <span class="walkin-label" id="walkInLabel"></span>
+            <span class="walkin-time" id="walkInTime"></span>
+          </div>
+          <p class="walkin-blurb" id="walkInBlurb"></p>
+        </div>
       </div>
     </section>
   </main>
@@ -210,6 +278,9 @@
       </div>
       <div class="footer-socials" id="footerSocials"></div>
       <p class="footer-copy">&copy; <span id="year"></span> JCTATTOO Saranay</p>
+      <div class="footer-legal-row">
+        <p class="footer-legal" id="footerLegal"></p>
+      </div>
     </div>
   </footer>
 

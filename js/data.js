@@ -20,19 +20,30 @@ const SITE = {
   instagramHandle: "@jcstattoo0503",
   instagramUrl: "https://instagram.com/jcstattoo0503",
 
-  // TODO: add the shop's Facebook page URL (page name is "JCTattoo Saranay")
-  facebookUrl: "",
+  // Facebook is the fastest way to reach the shop — the owner answers there.
+  facebookName: "JCTattoo Saranay",
+  facebookUrl: "https://www.facebook.com/share/1SfL9qPQ7d/?mibextid=wwXIfr",
+
   tiktokUrl: "",
 
-  // TODO: confirm whether these are opening or closing times, and that they're current
+  // Walk-ins: no appointment needed inside this window.
+  walkIn: {
+    label: "Walk-ins Welcome",
+    time: "6:00 PM – 1:00 AM",
+    blurb: "No appointment needed — drop by the studio on Saranay Road.",
+  },
+
+  // Open 6PM–1AM daily. This replaces the old vintage poster's times, which
+  // were bare opening hours with no closing time. If any day actually differs,
+  // change just that row.
   hours: [
-    { day: "Monday", time: "8:30 PM" },
-    { day: "Tuesday", time: "8:30 PM" },
-    { day: "Wednesday", time: "6:00 PM" },
-    { day: "Thursday", time: "6:00 PM" },
-    { day: "Friday", time: "8:30 PM" },
-    { day: "Saturday", time: "6:00 PM" },
-    { day: "Sunday", time: "6:00 PM" },
+    { day: "Monday", time: "6:00 PM – 1:00 AM" },
+    { day: "Tuesday", time: "6:00 PM – 1:00 AM" },
+    { day: "Wednesday", time: "6:00 PM – 1:00 AM" },
+    { day: "Thursday", time: "6:00 PM – 1:00 AM" },
+    { day: "Friday", time: "6:00 PM – 1:00 AM" },
+    { day: "Saturday", time: "6:00 PM – 1:00 AM" },
+    { day: "Sunday", time: "6:00 PM – 1:00 AM" },
   ],
 
   // TODO: replace with the artist's real name and bio
@@ -58,6 +69,20 @@ const SITE = {
         "Not sure what you want yet? Send a message with your idea, size, and placement for a free consultation.",
     },
   ],
+
+  // Age gate. Shown once per browser (choice remembered in localStorage).
+  // Tattoo/piercing shops carry this as standard practice — adjust the
+  // requirements below to match what the shop actually asks for at the door.
+  ageGate: {
+    minAge: 18,
+    requirements: [
+      "A parent or legal guardian must be physically present for the whole session",
+      "Valid government ID for both the client and the parent or guardian",
+      "A signed parental consent form, completed in the studio",
+    ],
+    note:
+      "Some placements and services are strictly 18+ regardless of consent. Final approval is always at the artist's discretion.",
+  },
 
   currency: "₱",
 
