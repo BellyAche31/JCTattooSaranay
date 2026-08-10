@@ -1,0 +1,427 @@
+<title>Running Your Website — The Easy Guide</title>
+<style>
+  :root {
+    --paper:    #faf6f0;
+    --card:     #ffffff;
+    --ink:      #2b2420;
+    --soft:     #6f6357;
+    --line:     #ece3d8;
+    --accent:   #d9531f;
+    --accent-2: #b8451a;
+    --accent-wash: #fdece1;
+    --go:       #3f7d58;
+    --go-wash:  #e9f4ee;
+
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper:    #1b1712;
+      --card:     #262019;
+      --ink:      #f3ece2;
+      --soft:     #b3a696;
+      --line:     #3a3226;
+      --accent:   #ff7a3d;
+      --accent-2: #ff9560;
+      --accent-wash: #3a2416;
+      --go:       #7fd9a3;
+      --go-wash:  #17281f;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper:    #1b1712;
+    --card:     #262019;
+    --ink:      #f3ece2;
+    --soft:     #b3a696;
+    --line:     #3a3226;
+    --accent:   #ff7a3d;
+    --accent-2: #ff9560;
+    --accent-wash: #3a2416;
+    --go:       #7fd9a3;
+    --go-wash:  #17281f;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 18px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page { max-width: 640px; margin: 0 auto; padding: 40px 20px 80px; }
+
+  /* ---- Hero ---- */
+  .hero { text-align: center; padding: 20px 0 44px; }
+  .hero-badge {
+    width: 64px; height: 64px;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    background: var(--accent);
+    display: grid;
+    place-items: center;
+    box-shadow: 0 10px 26px -8px rgba(217, 83, 31, 0.55);
+  }
+  .hero-badge svg { width: 30px; height: 30px; color: #fff; }
+  h1 {
+    font-size: clamp(1.7rem, 6vw, 2.3rem);
+    line-height: 1.2;
+    margin: 0 0 12px;
+    text-wrap: balance;
+    letter-spacing: -0.01em;
+  }
+  .hero p {
+    color: var(--soft);
+    font-size: 1.05rem;
+    max-width: 42ch;
+    margin: 0 auto;
+  }
+
+  /* ---- Progress dots ---- */
+  .roadmap {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin: 28px 0 4px;
+  }
+  .roadmap a {
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    background: var(--card);
+    border: 1.5px solid var(--line);
+    color: var(--soft);
+    display: grid;
+    place-items: center;
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-decoration: none;
+  }
+
+  /* ---- Step cards ---- */
+  .step {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    padding: 28px 26px;
+    margin-bottom: 20px;
+    scroll-margin-top: 24px;
+  }
+  .step-top {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 14px;
+  }
+  .step-num {
+    flex: none;
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #fff;
+    font-weight: 800;
+    font-size: 1.15rem;
+    display: grid;
+    place-items: center;
+    font-variant-numeric: tabular-nums;
+  }
+  .step h2 {
+    font-size: 1.25rem;
+    margin: 0;
+    line-height: 1.3;
+    text-wrap: balance;
+  }
+  .step-sub {
+    margin: 3px 0 0;
+    color: var(--soft);
+    font-size: 0.94rem;
+  }
+
+  .todo { list-style: none; margin: 18px 0 0; padding: 0; }
+  .todo li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 11px 0;
+    border-top: 1px solid var(--line);
+  }
+  .todo li:first-child { border-top: none; padding-top: 0; }
+  .check {
+    flex: none;
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: var(--go-wash);
+    color: var(--go);
+    display: grid;
+    place-items: center;
+    margin-top: 2px;
+  }
+  .check svg { width: 12px; height: 12px; }
+  .todo p { margin: 0; }
+  .todo b { font-weight: 700; }
+
+  .tip, .warn {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    border-radius: 14px;
+    padding: 14px 16px;
+    margin-top: 18px;
+    font-size: 0.94rem;
+  }
+  .tip { background: var(--go-wash); }
+  .warn { background: var(--accent-wash); }
+  .tip svg, .warn svg { flex: none; width: 20px; height: 20px; margin-top: 1px; }
+  .tip svg { color: var(--go); }
+  .warn svg { color: var(--accent); }
+  .tip p, .warn p { margin: 0; }
+  .tip b, .warn b { font-weight: 700; }
+
+  .linkbox {
+    display: block;
+    background: var(--paper);
+    border: 1.5px dashed var(--line);
+    border-radius: 12px;
+    padding: 13px 16px;
+    margin-top: 16px;
+    font-family: var(--mono);
+    font-size: 0.88rem;
+    word-break: break-all;
+    color: var(--accent-2);
+  }
+
+  /* ---- Price ---- */
+  .price {
+    margin-top: 18px;
+    border-radius: 16px;
+    background: linear-gradient(160deg, var(--accent-wash), var(--card));
+    border: 1.5px solid var(--accent);
+    padding: 22px 24px;
+  }
+  .price-row {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+  .price-num {
+    font-size: 2.1rem;
+    font-weight: 800;
+    color: var(--accent);
+    line-height: 1;
+  }
+  .price-per { color: var(--soft); font-size: 0.95rem; }
+  .price ul { margin: 0; padding-left: 20px; }
+  .price li { margin-bottom: 8px; }
+  .price li:last-child { margin-bottom: 0; }
+
+  code {
+    font-family: var(--mono);
+    font-size: 0.85em;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    padding: 2px 6px;
+    border-radius: 5px;
+  }
+
+  /* ---- Closing ---- */
+  .done {
+    text-align: center;
+    padding: 36px 24px;
+    margin-top: 8px;
+  }
+  .done-badge {
+    width: 56px; height: 56px;
+    margin: 0 auto 16px;
+    border-radius: 50%;
+    background: var(--go-wash);
+    color: var(--go);
+    display: grid;
+    place-items: center;
+  }
+  .done-badge svg { width: 28px; height: 28px; }
+  .done h2 { font-size: 1.4rem; margin: 0 0 10px; }
+  .done p { color: var(--soft); max-width: 40ch; margin: 0 auto; }
+
+  a { color: var(--accent-2); }
+  a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+  @media (max-width: 420px) {
+    .page { padding: 28px 16px 64px; }
+    .step { padding: 22px 18px; border-radius: 16px; }
+  }
+</style>
+
+<div class="page">
+
+  <div class="hero">
+    <div class="hero-badge">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-6"/></svg>
+    </div>
+    <h1>Running Your Website<br>The Easy Guide</h1>
+    <p>Five short steps. No coding. Take it one card at a time.</p>
+  </div>
+
+  <nav class="roadmap" aria-label="Jump to a step">
+    <a href="#s1">1</a><a href="#s2">2</a><a href="#s3">3</a><a href="#s4">4</a><a href="#s5">5</a>
+  </nav>
+
+  <!-- STEP 1 -->
+  <section class="step" id="s1">
+    <div class="step-top">
+      <span class="step-num">1</span>
+      <div>
+        <h2>Make your free account</h2>
+        <p class="step-sub">Like signing up for Facebook — but for your website.</p>
+      </div>
+    </div>
+
+    <ul class="todo">
+      <li><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span>
+        <p>Go to <b>github.com/signup</b></p></li>
+      <li><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span>
+        <p>Enter your email, pick a username and password</p></li>
+      <li><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span>
+        <p>Check your email and confirm it</p></li>
+    </ul>
+
+    <div class="warn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4M12 17h.01M10.3 3.9L2.6 18a2 2 0 001.7 3h15.4a2 2 0 001.7-3L13.7 3.9a2 2 0 00-3.4 0z"/></svg>
+      <p><b>Write down your username and password.</b> This account is how you own your website — keep it safe.</p>
+    </div>
+  </section>
+
+  <!-- STEP 2 -->
+  <section class="step" id="s2">
+    <div class="step-top">
+      <span class="step-num">2</span>
+      <div>
+        <h2>Get the website handed to you</h2>
+        <p class="step-sub">Two people, two small clicks.</p>
+      </div>
+    </div>
+
+    <ul class="todo">
+      <li><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span>
+        <p>Send <b>your username</b> to the person giving you the site</p></li>
+      <li><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span>
+        <p>They press a button on their end to send it to you</p></li>
+      <li><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span>
+        <p>You get an email — click <b>Accept</b></p></li>
+    </ul>
+
+    <div class="tip">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+      <p>That's it — the website is now <b>100% yours</b>.</p>
+    </div>
+  </section>
+
+  <!-- STEP 3 -->
+  <section class="step" id="s3">
+    <div class="step-top">
+      <span class="step-num">3</span>
+      <div>
+        <h2>Turn the website ON</h2>
+        <p class="step-sub">One time only. About 2 minutes.</p>
+      </div>
+    </div>
+
+    <ul class="todo">
+      <li><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span>
+        <p>Open your website page on GitHub → click <b>Settings</b></p></li>
+      <li><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span>
+        <p>Click <b>Pages</b> on the left side</p></li>
+      <li><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span>
+        <p>Choose <code>main</code>, then click <b>Save</b></p></li>
+      <li><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span>
+        <p>Wait 2 minutes, then refresh the page</p></li>
+    </ul>
+
+    <div class="tip">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+      <p>Your website is now live! This is its address — share it anywhere:</p>
+    </div>
+    <span class="linkbox">https://yourusername.github.io/JCTattooSaranay/</span>
+  </section>
+
+  <!-- STEP 4 -->
+  <section class="step" id="s4">
+    <div class="step-top">
+      <span class="step-num">4</span>
+      <div>
+        <h2>Make changes anytime</h2>
+        <p class="step-sub">Prices, hours, contact info, and photos.</p>
+      </div>
+    </div>
+
+    <ul class="todo">
+      <li><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span>
+        <p>Open the file named <code>data.js</code></p></li>
+      <li><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span>
+        <p>Click the little pencil icon to edit</p></li>
+      <li><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span>
+        <p>Only change the words <b>between the quote marks</b> — leave everything else alone</p></li>
+      <li><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span>
+        <p>Click the green <b>Commit changes</b> button to save</p></li>
+      <li><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span>
+        <p>Wait 1 minute — your website updates by itself</p></li>
+    </ul>
+
+    <div class="tip">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 12h8M8 16h5"/></svg>
+      <p><b>Adding photos:</b> open the <code>portfolio</code> folder → <b>Add file</b> → <b>Upload files</b> → drag your photos in → <b>Commit changes</b>.</p>
+    </div>
+
+    <div class="warn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4M12 17h.01M10.3 3.9L2.6 18a2 2 0 001.7 3h15.4a2 2 0 001.7-3L13.7 3.9a2 2 0 00-3.4 0z"/></svg>
+      <p><b>Made a mistake?</b> Click <b>Commits</b> (clock icon) → find it → click <b>···</b> → <b>Revert</b>. Nothing is ever lost forever.</p>
+    </div>
+  </section>
+
+  <!-- STEP 5 -->
+  <section class="step" id="s5">
+    <div class="step-top">
+      <span class="step-num">5</span>
+      <div>
+        <h2>Want a shorter web address?</h2>
+        <p class="step-sub">Optional. Your free one already works fine.</p>
+      </div>
+    </div>
+
+    <p style="margin-top:0">Instead of this:</p>
+    <span class="linkbox">https://yourusername.github.io/JCTattooSaranay/</span>
+    <p>You could have this:</p>
+    <span class="linkbox">https://jcstattoo.com</span>
+
+    <div class="price">
+      <div class="price-row">
+        <span class="price-num">₱1,000</span>
+        <span class="price-per">for 1 full year</span>
+      </div>
+      <ul>
+        <li><b>Only you</b> can use that exact address for the whole year — anywhere in the world</li>
+        <li>Hosting is <b>still free</b> — this doesn't change that</li>
+        <li>Pay again each year to keep it</li>
+      </ul>
+    </div>
+
+    <div class="warn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4M12 17h.01M10.3 3.9L2.6 18a2 2 0 001.7 3h15.4a2 2 0 001.7-3L13.7 3.9a2 2 0 00-3.4 0z"/></svg>
+      <p>This buys the <b>web address only</b> — not the shop name itself. Someone else could still open a shop with a similar name.</p>
+    </div>
+  </section>
+
+  <div class="done">
+    <div class="done-badge">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>
+    </div>
+    <h2>That's really it.</h2>
+    <p>One step at a time. You can't break anything forever — every change can be undone.</p>
+  </div>
+
+</div>
