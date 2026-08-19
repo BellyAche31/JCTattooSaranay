@@ -101,16 +101,31 @@
     });
   }
 
-  /* ---------- Group the portfolio by style ----------
+  /* ---------- Order the portfolio ----------
      Sorted in place before anything reads it, so the gallery, filter order,
-     marquee and lightbox indices all stay in agreement. Sort is stable, so
-     pieces keep their relative order within a category. */
+     marquee and lightbox indices all stay in agreement.
+
+     Newest work leads: pieces are ranked by their `added` date (newest first),
+     then grouped by style. Anything without a date counts as oldest, so the
+     existing back catalogue keeps its category grouping underneath. */
   const styleOrder = SITE.styleOrder || [];
   const styleRank = (tag) => {
     const i = styleOrder.indexOf(tag);
     return i === -1 ? styleOrder.length : i; // untagged/unknown styles go last
   };
-  SITE.portfolio.sort((a, b) => styleRank(a.tag) - styleRank(b.tag));
+  const addedOf = (item) => item.added || "";
+
+  // The most recent batch — what the "Latest" filter shows.
+  const newestDate = SITE.portfolio.reduce(
+    (max, item) => (addedOf(item) > max ? addedOf(item) : max),
+    ""
+  );
+  const isLatest = (item) => Boolean(newestDate) && addedOf(item) === newestDate;
+
+  SITE.portfolio.sort((a, b) => {
+    if (addedOf(a) !== addedOf(b)) return addedOf(a) < addedOf(b) ? 1 : -1;
+    return styleRank(a.tag) - styleRank(b.tag);
+  });
 
   /* ---------- Content from SITE config ---------- */
   document.title = `${SITE.businessName} — ${SITE.tagline}`;
@@ -292,7 +307,23 @@
   const filtersWrap = $("galleryFilters");
   const TILTS = [-2, 1.4, -1, 2, -1.6, 1, -2.4, 1.8, -1.2, 2.2];
 
-  [...new Set(SITE.portfolio.map((p) => p.tag))].forEach((tag) => {
+  // "Latest" leads. Category buttons follow styleOrder rather than the
+  // portfolio's own order, which is now sorted by date rather than by style.
+  if (newestDate) {
+    const latestBtn = document.createElement("button");
+    latestBtn.className = "filter-btn is-latest";
+    latestBtn.dataset.filter = "latest";
+    latestBtn.textContent = "Latest";
+    filtersWrap.appendChild(latestBtn);
+  }
+
+  const usedTags = new Set(SITE.portfolio.map((p) => p.tag));
+  const orderedTags = [
+    ...styleOrder.filter((t) => usedTags.has(t)),
+    ...[...usedTags].filter((t) => !styleOrder.includes(t)),
+  ];
+
+  orderedTags.forEach((tag) => {
     const btn = document.createElement("button");
     btn.className = "filter-btn";
     btn.dataset.filter = tag;
@@ -314,7 +345,11 @@
   function matching(filter) {
     return SITE.portfolio
       .map((item, index) => ({ item, index }))
-      .filter(({ item }) => filter === "all" || item.tag === filter)
+      .filter(({ item }) => {
+        if (filter === "all") return true;
+        if (filter === "latest") return isLatest(item);
+        return item.tag === filter;
+      })
       .map(({ index }) => index);
   }
 
@@ -329,6 +364,7 @@
       el.dataset.index = index;
       el.style.setProperty("--tilt", `${TILTS[index % TILTS.length]}deg`);
       el.innerHTML =
+        (isLatest(item) ? `<span class="new-flag">New</span>` : "") +
         `<img src="${item.src}" alt="${item.alt}" loading="lazy" />` +
         `<span class="tag">${item.tag}</span>`;
       frag.appendChild(el);

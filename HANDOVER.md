@@ -9,7 +9,7 @@ No coding knowledge needed. No monthly fees.
 
 | | |
 |---|---|
-| **The website** | A complete site: portfolio (60 photos), rates, hours, contact, age verification |
+| **The website** | A complete site: portfolio (81 photos), rates, hours, contact, age verification |
 | **Hosting** | **Free, forever**, on GitHub Pages |
 | **Running cost** | **₱0** — unless you want a custom web address (see Part 5) |
 | **Who controls it** | You, once the transfer in Part 2 is done |
@@ -137,8 +137,15 @@ walkIn: {
   src: "assets/portfolio/YOUR-FILE-NAME.jpg",
   alt: "Short description of the tattoo",
   tag: "Fine Line",
+  added: "2026-09",
 },
 ```
+
+**`added` is what makes new work show up first.** Put the year and month you
+posted it. The gallery puts the newest date at the top, marks those photos
+**NEW**, and the **Latest** button shows only them. Just use a later date than
+the batch before it — nothing else needs changing, and you don't have to
+remove the flag from older photos.
 
 `tag` must be one of these, spelled exactly:
 

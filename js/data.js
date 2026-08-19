@@ -492,5 +492,138 @@ const SITE = {
       alt: "Red and green rose tattoo covering previous work on the collarbone",
       tag: "Cover-Up",
     },
+
+    /* ====== Newest work ======
+       `added` marks when a piece was posted. The gallery shows the highest
+       value first and the "Latest" filter picks it out, so newest work leads.
+       When you upload new photos, give them a later date than this one —
+       nothing else needs changing. Entries with no date count as oldest. */
+
+    {
+      src: "assets/portfolio/lily-sleeve-shoulder.jpg",
+      alt: "Colour lily and vine half sleeve flowing over the shoulder",
+      tag: "Illustrative",
+      added: "2026-08",
+    },
+    {
+      src: "assets/portfolio/red-spider-lily-back.jpg",
+      alt: "Fine line red spider lily flowing up the back and neck",
+      tag: "Fine Line",
+      added: "2026-08",
+    },
+    {
+      src: "assets/portfolio/red-lotus-forearm.jpg",
+      alt: "Red ink lotus flower tattoo on the forearm",
+      tag: "Fine Line",
+      added: "2026-08",
+    },
+    {
+      src: "assets/portfolio/thorn-heart-arm.jpg",
+      alt: "Black and grey thorn vine shaped into a heart on the upper arm",
+      tag: "Illustrative",
+      added: "2026-08",
+    },
+    {
+      src: "assets/portfolio/cherub-rifle-shoulder.jpg",
+      alt: "Fine line winged cherub tattoo on the shoulder",
+      tag: "Illustrative",
+      added: "2026-08",
+    },
+    {
+      src: "assets/portfolio/dragon-flying-arm.jpg",
+      alt: "Small black and grey flying dragon breathing red fire on the arm",
+      tag: "Illustrative",
+      added: "2026-08",
+    },
+    {
+      src: "assets/portfolio/crowd-silhouette-arm.jpg",
+      alt: "Silhouette crowd scene tattoo banded around the arm",
+      tag: "Illustrative",
+      added: "2026-08",
+    },
+    {
+      src: "assets/portfolio/bandaid-heart-arm.jpg",
+      alt: "Black and grey bandaged dripping heart on the upper arm",
+      tag: "Illustrative",
+      added: "2026-08",
+    },
+    {
+      src: "assets/portfolio/peaky-portrait-wrist.jpg",
+      alt: "Negative space portrait of a figure in a flat cap on the wrist",
+      tag: "Illustrative",
+      added: "2026-08",
+    },
+    {
+      src: "assets/portfolio/clover-wrist.jpg",
+      alt: "Colour four leaf clover tattoo on the wrist",
+      tag: "Fine Line",
+      added: "2026-08",
+    },
+    {
+      src: "assets/portfolio/tribal-hand.jpg",
+      alt: "Tribal linework tattoo across the hand and fingers",
+      tag: "Tribal",
+      added: "2026-08",
+    },
+    {
+      src: "assets/portfolio/script-ribs-large.jpg",
+      alt: "Large flowing script name tattoo down the ribs",
+      tag: "Lettering",
+      added: "2026-08",
+    },
+    {
+      src: "assets/portfolio/blessed-cross-neck.jpg",
+      alt: "Cross with \"Blessed\" script lettering on the side of the neck",
+      tag: "Lettering",
+      added: "2026-08",
+    },
+    {
+      src: "assets/portfolio/wonder-script-neck.jpg",
+      alt: "Fine line script lettering behind the ear and down the neck",
+      tag: "Lettering",
+      added: "2026-08",
+    },
+    {
+      src: "assets/portfolio/faith-over-fear.jpg",
+      alt: "\"faith over fear\" fine line script across the collarbone",
+      tag: "Lettering",
+      added: "2026-08",
+    },
+    {
+      src: "assets/portfolio/number-444-throat.jpg",
+      alt: "Small 444 numerals tattooed at the base of the throat",
+      tag: "Lettering",
+      added: "2026-08",
+    },
+    {
+      src: "assets/portfolio/helix-double-ear.jpg",
+      alt: "Double helix piercings with barbell jewelry on the upper ear",
+      tag: "Piercing",
+      added: "2026-08",
+    },
+    {
+      src: "assets/portfolio/helix-pearl-lobe.jpg",
+      alt: "Helix piercing with a curved barbell above a pearl lobe stud",
+      tag: "Piercing",
+      added: "2026-08",
+    },
+    {
+      src: "assets/portfolio/labret-side-lip.jpg",
+      alt: "Side labret lip piercing with a ball stud",
+      tag: "Piercing",
+      added: "2026-08",
+    },
+    {
+      src: "assets/portfolio/nostril-gem.jpg",
+      alt: "Nostril piercing with a clear gem stud",
+      tag: "Piercing",
+      added: "2026-08",
+    },
+    {
+      src: "assets/portfolio/tongue-barbell.jpg",
+      alt: "Tongue piercing with a straight barbell",
+      tag: "Piercing",
+      added: "2026-08",
+    },
   ],
 };
