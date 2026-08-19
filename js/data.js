@@ -52,6 +52,14 @@ const SITE = {
     bio: "Tattoo artist and piercer at JCTATTOO Saranay, specializing in fine line, illustrative, and lettering work — plus safe, professional body piercing.",
   },
 
+  // The single piece shown beside the artist bio — the shop's calling card.
+  // Swap `src` for any file in assets/portfolio to feature different work.
+  featuredWork: {
+    src: "assets/portfolio/dragon-blossom-sleeve.jpg",
+    alt: "Black and grey dragon coiled through pink cherry blossoms, wrapping a half sleeve",
+    caption: "Featured work",
+  },
+
   services: [
     {
       title: "Custom Tattoos",

@@ -133,6 +133,14 @@
   $("artistBio").textContent = SITE.artist.bio;
   if (SITE.motto) $("heroMotto").textContent = SITE.motto;
 
+  // Featured piece beside the artist bio
+  if (SITE.featuredWork) {
+    const img = $("featuredImg");
+    img.src = SITE.featuredWork.src;
+    img.alt = SITE.featuredWork.alt;
+    $("featuredCaption").textContent = SITE.featuredWork.caption;
+  }
+
   // About stats — derived from real content so they can never go stale.
   // Deliberately NOT follower/review counts: those change on their own and
   // a hardcoded copy silently becomes a lie.
